@@ -7,10 +7,14 @@ Template for a REST micro service written in Kotlin.
 * Kotlin
 * Quarkus
 * PostgreSQL
-* Stateless architecture
+* OpenAPI v3 documentation generation
 * Kubernetes deployment
 * Docker compose for local development with live reload
 * Production ready native Dockerfile
+
+## Docs
+
+OpenAPI v3 documentation is generated on `localhost:8080/docs.yaml` and Swagger GUI is available on `localhost:8080/docs-ui`. The UI is only available on dev.
 
 ## Local development
 
