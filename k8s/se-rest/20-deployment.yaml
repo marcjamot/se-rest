@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: se-rest
+  labels:
+    app: se-rest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: se-rest
+  template:
+    metadata:
+      labels:
+        app: se-rest
+    spec:
+      initContainers:
+        - name: se-rest-sql
+          image: mjam/se-rest:latest
+          command: ["cp", "-R", "/sql", "/flyway/sql"]
+          volumeMounts:
+            - mountPath: /flyway/sql
+              name: sql
+        - name: flyway
+          image: flyway/flyway:6-alpine
+          env:
+            - name: FLYWAY_URL
+              value: jdbc:postgresql://postgres:5432/test
+            - name: FLYWAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: username
+            - name: FLYWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
+          command: ["/flyway/flyway", "migrate"]
+          volumeMounts:
+            - mountPath: /flyway/sql
+              name: sql
+      containers:
+        - name: se-rest
+          image: mjam/se-rest:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres
+                  key: password
+            - name: POSTGRES_DATABASE
+              value: test
+      volumes:
+        - name: sql
+          emptyDir: {}
