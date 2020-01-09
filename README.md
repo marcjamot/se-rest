@@ -1,30 +1,40 @@
-# se-rest project
+# Rest template
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Template for a REST micro service written in Kotlin.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+## Features
 
-## Running the application in dev mode
+* Kotlin
+* Quarkus
+* PostgreSQL
+* Stateless architecture
+* Kubernetes deployment
+* Docker compose for local development with live reload
+* Production ready native Dockerfile
 
-You can run your application in dev mode that enables live coding using:
-```
-./mvnw quarkus:dev
-```
+## Local development
 
-## Packaging and running the application
+* `docker-compose up`
 
-The application is packageable using `./mvnw package`.
-It produces the executable `se-rest-1.0.0-SNAPSHOT-runner.jar` file in `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+The `docker-compose.yaml` file will connect the micro service to a PostgreSQL database for persistent storage.
 
-The application is now runnable using `java -jar target/se-rest-1.0.0-SNAPSHOT-runner.jar`.
+Quarkus dev is set up for live reload and will notice file changes in `src` on new requests. However, if dependencies change in the `pom.xml` file, `docker-compose` needs to be re-run.
 
-## Creating a native executable
+## Deployment
 
-You can create a native executable using: `./mvnw package -Pnative`.
+* `docker build -t <tag> .`
 
-Or you can use Docker to build the native executable using: `./mvnw package -Pnative -Dquarkus.native.container-build=true`.
+Provided docker image has two steps.
 
-You can then execute your binary: `./target/se-rest-1.0.0-SNAPSHOT-runner`
+1. Compile the project sources to a native binary.
+2. Run the binary on `registry.access.redhat.com/ubi8/ubi-minimal`. 
 
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image-guide .
+## Kubernetes
+
+* `kubectl apply -f k8s/`
+
+In the `k8s` directory, resources are provided to deploy the micro service to a Kubernetes cluster.
+
+**Required changes**
+
+* Update image
