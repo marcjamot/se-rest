@@ -13,6 +13,7 @@ Docker hub: https://hub.docker.com/r/mjam/se-rest
 * Kubernetes deployment
 * Docker compose for local development with live reload
 * Production ready native Dockerfile
+* Flyway migration of database
 
 ## Docs
 
