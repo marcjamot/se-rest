@@ -14,7 +14,13 @@ spec:
       labels:
         app: se-rest
     spec:
-      containers:
+      initContainers:
+        - name: se-rest-sql
+          image: mjam/se-rest:latest
+          command: ["cp", "-R", "/sql", "/flyway/sql"]
+          volumeMounts:
+            - mountPath: /flyway/sql
+              name: sql
         - name: flyway
           image: flyway/flyway:6-alpine
           env:
@@ -30,8 +36,11 @@ spec:
                 secretKeyRef:
                   name: postgres
                   key: password
-          command:
-            - migrate
+          command: ["/flyway/flyway", "migrate"]
+          volumeMounts:
+            - mountPath: /flyway/sql
+              name: sql
+      containers:
         - name: se-rest
           image: mjam/se-rest:latest
           ports:
@@ -51,3 +60,6 @@ spec:
                   key: password
             - name: POSTGRES_DATABASE
               value: test
+      volumes:
+        - name: sql
+          emptyDir: {}
