@@ -61,3 +61,10 @@ Example set-up with k3s/k3d
 4. Apply all se-rest configs: `kubectl apply -f k8s/se-rest`.
 5. Port forward: `kubectl port-forward svc/se-rest 8080:80`.
 6. Curl: `curl http://localhost:8080/posts`.
+
+## Road plan
+
+* Auth against OIDC
+* Unit tests
+* Integration tests
+* CI/CD
