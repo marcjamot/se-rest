@@ -2,6 +2,8 @@
 
 Template for a REST micro service written in Kotlin.
 
+Docker hub: https://hub.docker.com/r/mjam/se-rest
+
 ## Features
 
 * Kotlin
@@ -41,4 +43,21 @@ In the `k8s` directory, resources are provided to deploy the micro service to a 
 
 **Required changes**
 
-* Update image
+* Update secrets in `k8s/se-rest/00-secrets.yaml`.
+* Make sure to **not** check in unencrypted secrets in the repository.
+* Update image in `k8s/se-rest/20-deployment.yaml`.
+
+## Local Kubernetes
+
+Example set-up with k3s/k3d
+
+* https://k3s.io/
+* https://github.com/rancher/k3d
+
+1. Create a cluster: `k3d create -n se-rest`.
+2. Add cluster info: `export KUBECONFIG="$(k3d get-kubeconfig --name='se-rest')"`.
+3. Apply secrets: `kubectl apply -f k8s/se-rest/00-secrets.yaml`
+3. Set up PostgreSQL: `kubectl apply -f k8s/dev/00-postgres.yaml`
+4. Apply all se-rest configs: `kubectl apply -f k8s/se-rest`.
+5. Port forward: `kubectl port-forward `.
+6. Curl: `curl http://localhost:8080/posts`.
