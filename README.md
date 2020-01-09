@@ -59,5 +59,5 @@ Example set-up with k3s/k3d
 3. Apply secrets: `kubectl apply -f k8s/se-rest/00-secrets.yaml`
 3. Set up PostgreSQL: `kubectl apply -f k8s/dev/00-postgres.yaml`
 4. Apply all se-rest configs: `kubectl apply -f k8s/se-rest`.
-5. Port forward: `kubectl port-forward `.
+5. Port forward: `kubectl port-forward svc/se-rest 8080:80`.
 6. Curl: `curl http://localhost:8080/posts`.
