@@ -37,9 +37,9 @@ Provided docker image has two steps.
 
 ## Kubernetes
 
-* `kubectl apply -f k8s/`
+* `kubectl apply -f k8s/se-rest`
 
-In the `k8s` directory, resources are provided to deploy the micro service to a Kubernetes cluster.
+In the `k8s/se-rest` directory, resources are provided to deploy the micro service to a Kubernetes cluster.
 
 **Required changes**
 
