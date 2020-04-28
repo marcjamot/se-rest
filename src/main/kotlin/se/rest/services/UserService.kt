@@ -5,10 +5,7 @@ import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
 
 @ApplicationScoped
-class UserService {
-
-    @Inject
-    lateinit var userRepository: UserRepository
+class UserService(private val userRepository: UserRepository) {
 
     fun getUsers(): List<User> = userRepository.getUsers()
             .thenApply { user ->

@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 class IndexController {
+
     @GET
     fun index(): ResponseMessage {
         return ResponseMessage(message = "It's working!")

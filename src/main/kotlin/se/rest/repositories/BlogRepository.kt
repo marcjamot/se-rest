@@ -2,13 +2,9 @@ package se.rest.repositories
 
 import java.util.concurrent.CompletableFuture
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
-class BlogRepository {
-
-    @Inject
-    lateinit var database: Database
+class BlogRepository(private val database: Database) {
 
     fun getPosts(): CompletableFuture<List<PostEntity>> {
         return database.pool()

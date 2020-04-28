@@ -6,20 +6,17 @@ import io.vertx.pgclient.PgConnectOptions
 import io.vertx.sqlclient.PoolOptions
 import se.rest.PostgresConfig
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
-class Database {
+class Database(private val postgresConfig: PostgresConfig) {
 
-    @Inject
-    lateinit var postgresConfig: PostgresConfig
     private lateinit var pgPool: PgPool
 
     fun pool(): PgPool {
         if (!::pgPool.isInitialized) {
             val connectOptions = PgConnectOptions()
                     .setHost(postgresConfig.getHost())
-                    .setPort(5432)
+                    .setPort(postgresConfig.getPort())
                     .setUser(postgresConfig.getUser())
                     .setPassword(postgresConfig.getPassword())
                     .setDatabase(postgresConfig.getDatabase())

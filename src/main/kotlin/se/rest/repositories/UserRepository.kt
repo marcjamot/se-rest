@@ -2,13 +2,9 @@ package se.rest.repositories
 
 import java.util.concurrent.CompletableFuture
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
-class UserRepository {
-
-    @Inject
-    lateinit var database: Database
+class UserRepository(private val database: Database) {
 
     fun getUsers(): CompletableFuture<List<UserEntity>> {
         return database.pool()
