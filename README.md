@@ -1,5 +1,7 @@
 # Rest template
 
+[![Build Status](https://travis-ci.com/marcjamot/se-rest.svg?branch=master)](https://travis-ci.com/marcjamot/se-rest)
+
 Template for a REST micro service written in Kotlin.
 
 Docker hub: https://hub.docker.com/r/mjam/se-rest
