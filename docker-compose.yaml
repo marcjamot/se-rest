@@ -23,7 +23,7 @@ services:
       FLYWAY_USER: test
       FLYWAY_PASSWORD: test
     volumes:
-      - ./sql:/flyway/sql
+      - ./src/main/resources/sql:/flyway/sql
     command: migrate
     restart: on-failure
 
@@ -36,10 +36,10 @@ services:
     restart: always
     environment:
       POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
       POSTGRES_USER: test
       POSTGRES_PASSWORD: test
       POSTGRES_DATABASE: test
-      QUARKUS_OIDC_ENABLED: "false"
     volumes:
       - mvn-cache:/root/.m2
       - ./.mvn:/app/.mvn

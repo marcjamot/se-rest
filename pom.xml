@@ -17,7 +17,7 @@
     <quarkus.platform.artifact-id>quarkus-universe-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.4.1.Final</quarkus.platform.version>
-    <surefire-plugin.version>2.22.1</surefire-plugin.version>
+    <surefire-plugin.version>2.22.2</surefire-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -47,6 +47,29 @@
     <dependency>
       <groupId>io.rest-assured</groupId>
       <artifactId>kotlin-extensions</artifactId>
+      <version>4.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-kotlin</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.mockk</groupId>
+      <artifactId>mockk</artifactId>
+      <version>1.9.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>1.14.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

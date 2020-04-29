@@ -2,13 +2,9 @@ package se.rest.services
 
 import se.rest.repositories.BlogRepository
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
-class BlogService {
-
-    @Inject
-    lateinit var blogRepository: BlogRepository
+class BlogService(private val blogRepository: BlogRepository) {
 
     fun getPosts(): List<Post> {
         return blogRepository.getPosts()

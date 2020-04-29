@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType
 @Path("/posts")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-class BlogController {
+class PostController {
 
     @Inject
     lateinit var blogService: BlogService

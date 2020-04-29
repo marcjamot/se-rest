@@ -9,7 +9,7 @@ RUN mvn -f /usr/src/app/pom.xml -Pnative clean package
 
 ## Stage 2 : create the docker final image
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.1
-COPY ./sql /sql
+COPY ./src/main/resources/sql /sql
 WORKDIR /work/
 COPY --from=build /usr/src/app/target/*-runner /work/application
 
