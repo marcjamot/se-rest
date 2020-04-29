@@ -1,0 +1,27 @@
+os: linux
+dist: bionic
+sudo: false
+
+services:
+  - docker
+
+language: java
+jdk:
+  - openjdk11
+cache:
+  directories:
+    - $HOME/.m2
+
+env:
+  global:
+    - secure: "D+QtS4VkssV18j/0I0YU5QHO7nvnxoJPI5zIR9j6TbCx9uRR/oNAmm6/8nuRGC+QjSwpxAzTd1IN4ZuRQPO9Pc6ar5VBFmA2nc/6NSA1K9OVD7sL9h4u1Oaz6WP2jIevVDePzdJ9qN5mmp7WfZV4mBFamu7kJEBBs3A+eFvUUzTT11WPvs7X+aUhfL97Gqc756gwztbp8UQvIf+DlFUJazSaFf1kpwbOKV4Wm4sNz+0fRJp6EK+kiScXcWRD/Ut4I4DrerxeIMS/xDsXlcR1esR/OrPOFHviRQiu24JepmfbOXcMESLZOSR0G3Qjl/KlPfu+lp3UCXCuaVq+UzN9tQIWC+sNFON7HrODluUGaKROp8nyhgcFJ/tT7qsC7yUpVBmqVkniN5VKAF5cmiqLXgszTT/HvcaGzQqtybTw4Fea+eKSz47/F7MuvQN+nAdI8Pf/mbdjZYSXE5qdoUahha6kFNtEOS+Ca4HjLhUIOflPaMUHL95agAKjeO0L2l8bzsoc1zPqY7Vs9oHCISl0DEM/H9hLmN7ZxuxmCBbyNYhrR8yDxI1DELIQ9BY7e/8EN60ZEH6sM6Bn+kupdrGPAWQr5/oXSuPYyGo89CvguHqB395J47HVln536Mr9up0BgK+SGIwDG5tiiIFIWZ/9W/XI3Sm9Km1TX/JuqcFdcDY="
+    - secure: "KAJsm0ql+pczZWoWSa1+dClmJzbNXYE60/7Ho9cKtiB9GkLPE2LKC4KA44vAMwsxlknHxo8yAgqYaZrDrWLlmbQLlKUk2AJjqLhcCrVII0uYKs1bLMMCWKYFDkpwswJ53f/F/bRRISHuAcDH+LLGx3OFb4+lALA0kJNoonYG99JmlvTMI0RHd1y+oCvLGlwp6QElJU5DgF+1+GSkXWZd1d9LBMDED6D70du0/UgETqqA9E2s7+9Q12iH/TAzQ+DbjXNC8SzdnRjJZAOLqylSF9Cl8h4MQYSqOWeNBv8N/NmOMoLOK9a6mNYIWfn1mRU+NS0NcZ3Y44EBc/jjRmEoHa5JsYGaVi8idrx+9zsHLEQBgYCs/DTW1GtXcmbRQakpPDI3lH5dNF6DdarUjMeDm7crc7WcPj2+YVdk5FLcY7oyFBLcAAp+a4/1wPoXKO6RUevfAHSrQbgMNH0PPDZTTqZfwEb2Ydcu4EVAnStmRmBziLn++KczRy+jqAZcjxEEGLMnGhJqqPnGIOBUCjhhYV5/DItP2sk8LTHfw/mp7eOfdlGdIrjDkDTKMDiSYxj/hIOeh/9uxr1WHLle03ZCNPeGNG1TjzLfXgaSHxhvH028n8f+NFaMX0TI0kv8nm5DKDTdrYQiLSs4rLbCopz/GT/LGzHGWJdDlpkhulRNPmc="
+
+before_deploy:
+  - docker build -t mjam/se-rest:latest .
+
+deploy:
+  on:
+    branch: master
+  provider: script
+  script: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin && docker push mjam/se-rest:latest
