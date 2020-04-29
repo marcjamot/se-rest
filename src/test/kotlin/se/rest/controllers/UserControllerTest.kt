@@ -1,26 +1,33 @@
 package se.rest.controllers
 
+import io.mockk.every
+import io.mockk.mockk
+import io.quarkus.test.junit.QuarkusMock
 import io.quarkus.test.junit.QuarkusTest
-import io.quarkus.test.junit.mockito.InjectMock
 import io.restassured.module.kotlin.extensions.Extract
 import io.restassured.module.kotlin.extensions.Then
 import io.restassured.module.kotlin.extensions.When
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
 import se.rest.services.User
 import se.rest.services.UserService
 
 @QuarkusTest
-class UserControllerTest {
+internal class UserControllerTest {
 
-    @InjectMock
-    lateinit var userService: UserService
+    private lateinit var userService: UserService
+
+    @BeforeEach
+    internal fun setUp() {
+        userService = mockk()
+        QuarkusMock.installMockForType(userService, UserService::class.java)
+    }
 
     @Test
-    fun testGetUsers() {
+    internal fun testGetUsers() {
         val input = listOf(User("id", "name"))
-        `when`(userService.getUsers()).thenReturn(input)
+        every { userService.getUsers() } returns input
 
         val output =
                 When {

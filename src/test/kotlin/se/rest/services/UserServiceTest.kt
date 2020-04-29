@@ -1,9 +1,10 @@
 package se.rest.services
 
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.mock
 import se.rest.repositories.UserEntity
 import se.rest.repositories.UserRepository
 import java.util.*
@@ -11,15 +12,21 @@ import java.util.concurrent.CompletableFuture
 
 internal class UserServiceTest {
 
+    private lateinit var userRepository: UserRepository
+
+    @BeforeEach
+    internal fun setUp() {
+        userRepository = mockk()
+    }
+
     @Test
     internal fun testGetUsers() {
-        val userRepository = mock(UserRepository::class.java)
         val user = UserEntity(
                 id = UUID.randomUUID(),
                 name = "El Dorado"
         )
-        `when`(userRepository.getUsers())
-                .thenReturn(CompletableFuture.completedFuture(listOf(user)))
+        every { userRepository.getUsers() } returns
+                CompletableFuture.completedFuture(listOf(user))
 
         val userService = UserService(userRepository)
         val users = userService.getUsers()
