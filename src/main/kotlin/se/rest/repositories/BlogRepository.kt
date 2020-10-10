@@ -9,6 +9,7 @@ class BlogRepository(private val database: Database) {
     fun getPosts(): CompletableFuture<List<PostEntity>> {
         return database.pool()
                 .preparedQuery("SELECT id, user_id, content FROM posts")
+                .execute()
                 .thenApply { row ->
                     row.map {
                         PostEntity(
