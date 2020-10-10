@@ -47,7 +47,7 @@ class PostgreSQL(image: String = DEFAULT_IMAGE) : PostgreSQLContainer<PostgreSQL
     fun setUp() {
         database = Database(Config(
                 _host = containerIpAddress,
-                _port = getMappedPort(PostgreSQLContainer.POSTGRESQL_PORT),
+                _port = getMappedPort(POSTGRESQL_PORT),
                 _user = username,
                 _password = password,
                 _database = databaseName))
@@ -59,7 +59,7 @@ class PostgreSQL(image: String = DEFAULT_IMAGE) : PostgreSQLContainer<PostgreSQL
 
         val pool = database.pool()
         files.forEach {
-            pool.query(it.readText()).toCompletableFuture().join()
+            pool.query(it.readText()).execute().toCompletableFuture().join()
         }
     }
 }

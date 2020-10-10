@@ -9,6 +9,7 @@ class UserRepository(private val database: Database) {
     fun getUsers(): CompletableFuture<List<UserEntity>> {
         return database.pool()
                 .preparedQuery("SELECT id, name FROM users")
+                .execute()
                 .thenApply { row ->
                     row.map {
                         UserEntity(

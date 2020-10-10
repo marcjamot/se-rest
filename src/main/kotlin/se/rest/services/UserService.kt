@@ -2,7 +2,6 @@ package se.rest.services
 
 import se.rest.repositories.UserRepository
 import javax.enterprise.context.ApplicationScoped
-import javax.inject.Inject
 
 @ApplicationScoped
 class UserService(private val userRepository: UserRepository) {
