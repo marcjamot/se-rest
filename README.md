@@ -4,8 +4,6 @@
 
 Template for a REST micro service written in Kotlin.
 
-Docker hub: https://hub.docker.com/r/mjam/se-rest
-
 ## Features
 
 * Kotlin
