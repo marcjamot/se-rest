@@ -5,7 +5,7 @@ import se.rest.PostgresConfig
 import se.rest.repositories.Database
 import java.io.File
 
-const val DEFAULT_IMAGE = "postgres:12-alpine"
+const val DEFAULT_IMAGE = "postgres:13-alpine"
 const val DEFAULT_USER = "test"
 const val DEFAULT_PASSWORD = "test"
 const val DEFAULT_DATABASE = "test"

@@ -22,7 +22,7 @@ spec:
             - mountPath: /flyway/sql
               name: sql
         - name: flyway
-          image: flyway/flyway:6-alpine
+          image: flyway/flyway:7-alpine
           env:
             - name: FLYWAY_URL
               value: jdbc:postgresql://postgres:5432/test
