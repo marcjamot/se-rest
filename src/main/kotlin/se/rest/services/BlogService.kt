@@ -17,7 +17,7 @@ class BlogService(private val blogRepository: BlogRepository) {
                         )
                     }
                 }
-                .exceptionally { println(it.message); emptyList() }
+                .exceptionally { emptyList() }
                 .join()
     }
 }
